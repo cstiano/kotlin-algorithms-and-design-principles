@@ -34,9 +34,18 @@ class FixedMultiStack constructor(val stackSize: Int) {
         return value ?: -1
     }
 
-    private fun isFull(stackNum: Int) = false
+    public fun peek(stackNum: Int): Int? {
+        if (isEmpty(stackNum)) throw Exception()
+        return values?.get(indexOfTop(stackNum))
+    }
 
-    private fun isEmpty(stackNum: Int) = false
+    private fun isFull(stackNum: Int) = sizes?.get(stackNum) == stackCapacity
 
-    private fun indexOfTop(stackNum: Int) = 0
+    private fun isEmpty(stackNum: Int) = sizes?.get(stackNum) == 0
+
+    private fun indexOfTop(stackNum: Int): Int {
+        val offset = stackNum * stackCapacity!!
+        val size = sizes?.get(stackNum)
+        return offset + size!! - 1
+    }
 }
